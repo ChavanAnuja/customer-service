@@ -1,0 +1,68 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+	
+ <changeSet author="Anuja Chavan" id="20240420">		
+		<createTable tableName="department" schemaName="customer_audit">
+			<column name="id" type="int">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="dept" type="int">
+				<constraints nullable="false" />
+			</column>
+			<column name="emp_id" type="int">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		
+	</changeSet>
+	
+	
+	
+</databaseChangeLog>
+
+
+
+
+
+
+
+
+
+	<!--changeSet id="20240417" author="Vaibhav Zodge">
+		<createTable tableName="customer">
+			<column name="customer_code" type="bigint">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="first_name" type="varchar(255)" />
+			<column name="last_name" type="varchar(255)" />
+			<column name="middle_name" type="varchar(255)" />
+			<column name="date_of_birth" type="varchar(255)" />
+			<column name="address_line1" type="varchar(255)" />
+			<column name="address_line2" type="varchar(255)" />
+			<column name="zip" type="varchar(255)" />
+			<column name="city" type="varchar(255)" />
+			<column name="state" type="varchar(255)" />
+			<column name="country" type="varchar(255)" />
+			<column name="created_date" type="timestamp">
+				<constraints nullable="false" />
+			</column>
+			<column name="updated_date" type="timestamp">
+				<constraints nullable="false" />
+			</column>
+			<column name="customer_id" type="bigint">
+				<constraints nullable="false" />
+			</column>
+			<column name="mobile" type="varchar(255)" />
+			<column name="home_phone" type="varchar(255)" />
+			<column name="work_phone" type="varchar(255)" />
+			<column name="email_id" type="varchar(255)">
+				<constraints unique="true" />
+			</column>
+		</createTable>
+	</changeSet-->
+	<!--changeSet id="20240417-1" author="Vaibhav Zodge">
+		<renameColumn tableName="customer" oldColumnName="mobile" newColumnName="mobile_phone" columnDataType="varchar(255)"/>
+	</changeSet-->

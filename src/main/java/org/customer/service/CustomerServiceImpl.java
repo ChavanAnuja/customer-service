@@ -9,6 +9,7 @@ import org.customer.dto.CustomerResponse;
 import org.customer.dto.SearchCustomerResponse;
 import org.customer.entity.Customer;
 import org.customer.repo.CustomerRepository;
+import org.dnyanyog.common.ResponseCodes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -27,8 +28,8 @@ public class CustomerServiceImpl implements CustomerService {
   public CustomerResponse addCustomerDetails(CustomerRequest customerRequest) {
 
     if (customerRepo.existsByEmail_id(customerRequest.getEmailID())) {
-      customerResponse.setStatus("Error");
-      customerResponse.setMessage("Email is already exist! Please enter valid emailID");
+      customerResponse.setStatus(ResponseCodes.ADD_CUSTOMER_DUPLICATE_EMAIL.getCode());
+      customerResponse.setMessage(ResponseCodes.ADD_CUSTOMER_DUPLICATE_EMAIL.getMessage());
       customerResponse.setCustomerCode(0000);
     } else {
 
@@ -58,20 +59,19 @@ public class CustomerServiceImpl implements CustomerService {
         e.printStackTrace();
       }
 
-      customerResponse.setStatus("Success");
-      customerResponse.setMessage("Customer added successfully!!");
-      customerResponse.setCustomerCode(customerTable.getCustomer_code());
+      customerResponse.setStatus(ResponseCodes.ADD_CUSTOMER_SUCCESS.getCode());
+      customerResponse.setMessage(ResponseCodes.ADD_CUSTOMER_SUCCESS.getMessage());
+      customerResponse.setCustomerCode(0000);
     }
     return customerResponse;
   }
 
-  @Override
   public CustomerResponse updateCustomerDetails(long id, CustomerRequest customerRequest) {
 
     Optional<Customer> customerTable = customerRepo.findById(id);
     if (customerTable.isEmpty()) {
-      customerResponse.setStatus("Fail");
-      customerResponse.setMessage("Customer not present");
+      customerResponse.setStatus(ResponseCodes.CUSTOMER_NOT_FOUND.getCode());
+      customerResponse.setMessage(ResponseCodes.CUSTOMER_NOT_FOUND.getMessage());
       customerResponse.setCustomerCode(0000);
     } else {
       Customer customer =
@@ -98,19 +98,18 @@ public class CustomerServiceImpl implements CustomerService {
     return customerResponse;
   }
 
-  @Override
   public CustomerResponse findByMobileNumber(String mobile_number) {
     List<Customer> customerTable = customerRepo.findByMobile(mobile_number);
 
     if (customerTable.isEmpty()) {
-      customerResponse.setStatus("Fail");
-      customerResponse.setMessage("Customer not found!!");
-      customerResponse.setCustomerCode(0000);
+      customerResponse.setStatus(ResponseCodes.CUSTOMER_NOT_FOUND.getCode());
+      customerResponse.setMessage(ResponseCodes.CUSTOMER_NOT_FOUND.getMessage());
+      customerResponse.setCustomerCode(ResponseCodes.CUSTOMER_NOT_FOUND.getStatus());
     } else {
       Customer receivedData = customerTable.get(0);
 
-      searchCustomerResponse.setStatus("Success");
-      searchCustomerResponse.setMessage("Customer details are as follows:");
+      searchCustomerResponse.setStatus(ResponseCodes.CUSTOMER_DETAILS_FOUND.getCode());
+      searchCustomerResponse.setMessage(ResponseCodes.CUSTOMER_DETAILS_FOUND.getMessage());
       searchCustomerResponse.setCustomerCode(receivedData.getCustomer_code());
 
       // Set individual customer data fields

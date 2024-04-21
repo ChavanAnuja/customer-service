@@ -1,11 +1,23 @@
 package org.customer.dto;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CustomerData {
+
+  @NotNull(message = "Username should not be Null")
+  @NotBlank(message = "Username should not be Blank")
   private String firstName;
+
+  @NotNull(message = "Lastname should not be Null")
+  @NotBlank(message = "Lastname should not be Blank")
   private String lastName;
+
   private String middleName;
   private String dateOfBirth;
   private String addressLine1;
@@ -14,10 +26,24 @@ public class CustomerData {
   private String city;
   private String state;
   private String country;
+
+  @Min(value = 10, message = "Minium digits should be 10")
+  @Max(value = 10, message = "maximum digits should be 10")
   private String mobilePhone;
+
+  @Min(value = 10, message = "Minimum digits should be 10")
+  @Max(value = 12, message = "maximum digits should be 12")
   private String homePhone;
+
+  @Min(value = 10, message = "Minimum digits should be 10")
+  @Max(value = 12, message = "maximum digits should be 12")
   private String workPhone;
+
+  @NotNull(message = "Email Id is Mendatory")
+  @NotBlank(message = "Email Id should not be Blank")
+  @Email(message = "Invalid email formate")
   private String emailID;
+
   private int customerId;
 
   public String getFirstName() {
